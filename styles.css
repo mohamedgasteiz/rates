@@ -25,6 +25,18 @@ body {
         .right-box {
             right: 0px; /* ترك مسافة من اليمين */
         }  
+.content {
+            flex: 1; /* يجعل المحتوى يأخذ المساحة المتاحة ويدفع الـ hr إلى الأسفل */
+            padding: 20px;
+        }
+
+        hr {
+            width: 100%;
+            height: 3px;
+            background-color: black;
+            border: none;
+            margin: 0;
+        }
 .container {
     max-width: 1000px;
     margin: 2rem auto;
