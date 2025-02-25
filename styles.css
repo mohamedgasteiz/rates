@@ -13,7 +13,7 @@ body {
     min-height: 100vh;
 }
         .left-box, .right-box {
-            position: absolute;
+            position: fixed;
             top: 20px; /* تم إنزال العناصر بمقدار 20px */
             padding: 10px 20px;
         }
