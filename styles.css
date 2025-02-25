@@ -12,6 +12,18 @@ body {
     color: #1a1a1a;
     min-height: 100vh;
 }
+.left-box{
+    position:absolute;
+    top:10px;
+    padding:10px 20px;
+    border:1px solid #ccc
+}
+.left-box{
+    left:10px;
+}
+.right-box{
+    right:10px;
+}
 
 .container {
     max-width: 1000px;
