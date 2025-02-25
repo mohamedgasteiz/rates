@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: yellow;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 70%;
+    margin: 50px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+h1{
+    color: red;
+    }
+h2 {
+    color: green;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background: #007bff;
+    color: black;
+}
+
+input {
+    width: 90%;
+    padding: 8px;
+    border: 2px solid #007bff;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+    outline: none;
+    transition: 0.3s;
+}
+
+input:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 8px rgba(40, 167, 69, 0.5);
+}
+
+button {
+    background: linear-gradient(135deg, #28a745, #218838);
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    cursor: pointer;
+    margin: 5px;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+    background: linear-gradient(135deg, #218838, #1e7e34);
+    transform: scale(1.05);
+}
+
+button:active {
+    transform: scale(0.98);
+}
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حساب المعدل الفصلي</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; direction: rtl; }
+        table { width: 80%; margin: 20px auto; border-collapse: collapse; }
+        th, td { border: 1px solid black; padding: 10px; text-align: center; }
+        th { background-color: #f4f4f4; }
+        input { width: 50px; text-align: center; }
+        button { margin-top: 10px; padding: 10px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <center>
+    <h1>حساب المعدل الفصلي</h1>
+    <h2>سنة اولى متوسط</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>المادة</th>
+                <th>الفرض</th>
+                <th>التقويم</th>
+                <th>الاختبار</th>
+                <th>المعامل</th>
+                <th>معدل المادة</th>
+            </tr>
+        </thead>
+        <tbody id="gradesTable">
+            <!-- سيتم ملء الجدول ديناميكيا -->
+        </tbody>
+    </table>
+
+    <button onclick="calculateAverage()">حساب المعدل الفصلي</button>
+    
+    <h1 id="finalAverage">المعدل الفصلي: --</h3>
+
+    <script>// أسماء المواد مع المعاملات المحددة مسبقًا
+const subjects = [
+{ name: "عربية", coefficient: 2 },
+{ name: "فرنسية", coefficient: 1 },  
+{ name: "إنجليزية", coefficient: 1 }, 
+{ name: "رياضيات", coefficient: 2 },
+{ name: "علوم طبيعية", coefficient: 1},
+    { name: "فيزياء", coefficient: 1 },
+ { name: "اجتماعيات", coefficient: 2 },
+ { name: "تربية إسلامية", coefficient: 1 },
+    { name: "تربية مدنية", coefficient: 1 },
+    { name: "موسيقى/تشكيلية /معلوماتية", coefficient: 1 },
+    { name: "تربية بدنية", coefficient: 1 }
+];
+
+// إنشاء الجدول تلقائيًا
+const tableBody = document.getElementById("gradesTable");
+
+// تحميل العلامات المحفوظة إن وجدت
+let savedData = JSON.parse(localStorage.getItem("gradesData")) || {};
+
+subjects.forEach(subject => {
+    let row = document.createElement("tr");
+    row.innerHTML = `
+        <td>${subject.name}</td>
+        <td><input type="number" min="0" max="20" class="grade" data-subject="${subject.name}" data-type="assignment"></td>
+        <td><input type="number" min="0" max="20" class="grade" data-subject="${subject.name}" data-type="assessment"></td>
+        <td><input type="number" min="0" max="20" class="grade" data-subject="${subject.name}" data-type="test"></td>
+        <td>${subject.coefficient}</td>
+        <td class="subjectAverage">--</td>`
+    ;
+    tableBody.appendChild(row);
+
+    // تحميل العلامات المحفوظة إن وجدت
+    if (savedData[subject.name]) {
+        let inputs = row.querySelectorAll(".grade");
+        inputs[0].value = savedData[subject.name].assignment;
+        inputs[1].value = savedData[subject.name].assessment;
+        inputs[2].value = savedData[subject.name].test;
+    }
+});
+
+// حفظ العلامات عند الإدخال
+document.querySelectorAll(".grade").forEach(input => {
+    input.addEventListener("input", saveGrades);
+});
+
+function saveGrades() {
+    let data = {};
+
+    document.querySelectorAll("#gradesTable tr").forEach(row => {
+        let subject = row.cells[0].innerText;
+        let grades = row.querySelectorAll(".grade");
+
+        data[subject] = {
+            assignment: grades[0].value || "",
+            assessment: grades[1].value || "",
+            test: grades[2].value || ""
+        };
+    });
+
+    localStorage.setItem("gradesData", JSON.stringify(data));
+}
+
+// حساب المعدل الفصلي
+function calculateAverage() {
+    let totalWeightedSum = 0;
+    let totalCoefficient = 0;
+
+    document.querySelectorAll("#gradesTable tr").forEach(row => {
+        let grades = row.querySelectorAll(".grade");
+        let coefficient = parseFloat(row.cells[4].innerText);
+
+        let test = parseFloat(grades[2].value) || 0;
+        let assessment = parseFloat(grades[1].value) || 0;
+        let assignment = parseFloat(grades[0].value) || 0;
+
+        let subjectAverage = ((assignment + assessment + 2 * test) / 4) * coefficient;
+        row.querySelector(".subjectAverage").innerText = subjectAverage.toFixed(2);
+
+        totalWeightedSum += subjectAverage;
+        totalCoefficient += coefficient;
+    });
+
+    let finalAverage = totalCoefficient > 0 ? (totalWeightedSum / totalCoefficient).toFixed(2) : "--";
+    document.getElementById("finalAverage").innerText = "المعدل الفصلي: " + finalAverage;
+
+    saveGrades(); // حفظ العلامات بعد الحساب
+}
+
+// تحميل البيانات تلقائيًا عند فتح الصفحة
+document.addEventListener("DOMContentLoaded", saveGrades);
+    </script>
+   
+<br><br>
+Mohamed Nassereddine Hamouda 
+<br><br>
+All rights saved - 2025
+</center>
+</body>
+</html>
