@@ -12,12 +12,19 @@ body {
     color: #1a1a1a;
     min-height: 100vh;
 }
-.left-box, right-box{
-    position:absolute;
-    padding:10px 20px;
-    border:1px solid #ccc
-}
+        .left-box, .right-box {
+            position: absolute;
+            top: 20px; /* تم إنزال العناصر بمقدار 20px */
+            padding: 10px 20px;
+        }
 
+        .left-box {
+            left: 0px; /* ترك مسافة من اليسار */
+        }
+
+        .right-box {
+            right: 0px; /* ترك مسافة من اليمين */
+        }  
 .container {
     max-width: 1000px;
     margin: 2rem auto;
