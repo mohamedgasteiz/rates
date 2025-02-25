@@ -14,16 +14,15 @@ body {
 }
         .left-box, .right-box {
             position: fixed;
-            top: 20px; /* تم إنزال العناصر بمقدار 20px */
-            padding: 10px 20px;
+            top: 20px; 
         }
 
         .left-box {
-            left: 0px; /* ترك مسافة من اليسار */
+            left: 0px;
         }
 
         .right-box {
-            right: 0px; /* ترك مسافة من اليمين */
+            right: 0px;
         }  
 
 
