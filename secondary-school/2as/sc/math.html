@@ -4,51 +4,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>حساب المعدل الفصلي</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- Replace jsPDF library and its dependencies with html2pdf -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <!-- Add custom font support -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
-    <div class="page-wrapper">
-        <div class="ad-space">
-            <!-- Right Ad Space 160x600 -->
+    <div class="container">
+        <h1>حساب المعدل الفصلي</h1>
+        <h2>سنة ثانية ثانوي</h2>
+        <h3>(شعبة الرياضيات)</h3>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>المادة</th>
+                    <th>الفرض</th>
+                    <th>التقويم</th>
+                    <th>الاختبار</th>
+                    <th>المعامل</th>
+                    <th>معدل المادة</th>
+                </tr>
+            </thead>
+            <tbody id="gradesTable">
+                <!-- سيتم ملء الجدول ديناميكيا -->
+            </tbody>
+        </table>
+
+        <div class="button-group">
+            <button onclick="calculateAverage()">حساب المعدل الفصلي</button>
+            <button onclick="exportToPDF()">تحميل PDF</button>
         </div>
         
-        <div class="container">
-            <h1>حساب المعدل الفصلي</h1>
-            <h2>سنة ثانية ثانوي</h2>
-            <h3>(شعبة الرياضيات)</h3>
+        <h2 id="finalAverage">المعدل الفصلي: --</h2>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>المادة</th>
-                        <th>الفرض</th>
-                        <th>التقويم</th>
-                        <th>الاختبار</th>
-                        <th>المعامل</th>
-                        <th>معدل المادة</th>
-                    </tr>
-                </thead>
-                <tbody id="gradesTable">
-                    <!-- سيتم ملء الجدول ديناميكيا -->
-                </tbody>
-            </table>
-
-            <button onclick="calculateAverage()">حساب المعدل الفصلي</button>
-            
-            <h2 id="finalAverage">المعدل الفصلي: --</h2>
-
-            <footer>
-                <p>Mohamed Nassereddine Hamouda</p>
-                <p>All rights saved - 2025</p>
-            </footer>
-        </div>
-
-        <div class="ad-space">
-            <!-- Left Ad Space 160x600 -->
-        </div>
+        <footer>
+            <p>Mohamed Nassereddine Hamouda</p>
+            <p>All rights saved - 2025</p>
+        </footer>
     </div>
-   <script>// أسماء المواد مع المعاملات المحددة مسبقًا
-const subjects = [
-{ name: "عربية", coefficient: 2},
+
+    <script>
+        // أسماء المواد مع المعاملات المحددة مسبقًا
+        const subjects = [
+
+        { name: "عربية", coefficient: 2},
 { name: "إنجليزية", coefficient: 2 },
 { name: "فرنسية", coefficient: 2 },
 { name: "رياضيات", coefficient: 7 },
@@ -69,9 +69,9 @@ subjects.forEach(subject => {
     let row = document.createElement("tr");
     row.innerHTML = `
         <td>${subject.name}</td>
-        <td><input type="number" min="0" max="20" class="grade" data-subject="${subject.name}" data-type="assignment"></td>
-        <td><input type="number" min="0" max="20" class="grade" data-subject="${subject.name}" data-type="assessment"></td>
-        <td><input type="number" min="0" max="20" class="grade" data-subject="${subject.name}" data-type="test"></td>
+        <td><input type="number" min="0" max="20" step="0.01" class="grade" data-subject="${subject.name}" data-type="assignment"></td>
+        <td><input type="number" min="0" max="20" step="0.01" class="grade" data-subject="${subject.name}" data-type="assessment"></td>
+        <td><input type="number" min="0" max="20" step="0.01" class="grade" data-subject="${subject.name}" data-type="test"></td>
         <td>${subject.coefficient}</td>
         <td class="subjectAverage">--</td>
     `;
@@ -86,9 +86,17 @@ subjects.forEach(subject => {
     }
 });
 
-// حفظ العلامات عند الإدخال
+// حفظ العلامات عند الإدخال وتطبيق القيود
 document.querySelectorAll(".grade").forEach(input => {
-    input.addEventListener("input", saveGrades);
+    input.addEventListener("input", function() {
+        let value = parseFloat(this.value);
+        if (value > 20) {
+            this.value = 20;
+        } else if (value < 0) {
+            this.value = 0;
+        }
+        saveGrades();
+    });
 });
 
 function saveGrades() {
@@ -134,9 +142,60 @@ function calculateAverage() {
     saveGrades(); // حفظ العلامات بعد الحساب
 }
 
+// إضافة وظيفة تصدير PDF
+function exportToPDF() {
+    // Create a clone of the container to modify for PDF
+    const container = document.querySelector('.container').cloneNode(true);
+    
+    // Add some styling for PDF
+    const style = document.createElement('style');
+    style.textContent = `
+        .container { padding: 20px; direction: rtl; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; page-break-inside: avoid; }
+        th, td { border: 1px solid #000; padding: 8px; text-align: center; }
+        th { background-color: #3498db; color: white; }
+        h1, h2, h3 { margin: 10px 0; }
+        .button-group { display: none; }
+        footer { margin-top: 20px; }
+    `;
+    container.prepend(style);
+
+    // Configure PDF options
+    const opt = {
+        margin: [10, 10, 10, 10],
+        filename: 'كشف_العلامات.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { 
+            scale: 2,
+            useCORS: true,
+            logging: false,
+            dpi: 192,
+            letterRendering: true,
+            scrollY: 0,
+            windowWidth: document.documentElement.scrollWidth
+        },
+        jsPDF: { 
+            unit: 'mm', 
+            format: 'a4', 
+            orientation: 'portrait',
+            compress: true
+        },
+        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+    };
+
+    // Generate PDF
+    html2pdf().from(container).set(opt).save()
+        .catch(err => {
+            console.error('Error generating PDF:', err);
+            alert('حدث خطأ أثناء إنشاء ملف PDF. يرجى المحاولة مرة أخرى.');
+        });
+}
+
 // تحميل البيانات تلقائيًا عند فتح الصفحة
-document.addEventListener("DOMContentLoaded", saveGrades);
+document.addEventListener("DOMContentLoaded", () => {
+    saveGrades();
+    calculateAverage(); // حساب المعدل مباشرة عند تحميل البيانات المحفوظة
+});
     </script>
-        </script>
 </body>
 </html>
