@@ -16,7 +16,27 @@ body {
 .container {
     max-width: 1000px;
     margin: 2rem auto;
-    padding: 0 1rem;
+    padding: 0 200px; 
+    position: relative;
+}
+
+.container::before,
+.container::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    width: 200px;
+    height: 100vh;
+    background: white;
+    z-index: 10;
+}
+
+.container::before {
+    left: 0;
+}
+
+.container::after {
+    right: 0;
 }
 
 header {
@@ -215,7 +235,28 @@ input {
     margin-top: 1rem;
 }
 
+@media (max-width: 1200px) {
+    .container {
+        padding: 0 100px;  
+    }
+    
+    .container::before,
+    .container::after {
+        width: 100px; 
+    }
+}
+
 @media (max-width: 768px) {
+    .container {
+        padding: 0 50px; 
+        margin: 1rem auto;
+    }
+    
+    .container::before,
+    .container::after {
+        width: 50px; 
+    }
+
     .levels-container {
         grid-template-columns: 1fr;
         gap: 1rem;
@@ -228,5 +269,37 @@ input {
     
     .delete-btn {
         width: 100%;
+    }
+
+    header h1 {
+        font-size: 2rem;
+    }
+
+    header p {
+        font-size: 1rem;
+    }
+
+    .level-card {
+        padding: 1.5rem;
+    }
+
+    .icon {
+        width: 60px;
+        height: 60px;
+    }
+
+    .level-card h3 {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 30px; 
+    }
+    
+    .container::before,
+    .container::after {
+        width: 30px; 
     }
 }

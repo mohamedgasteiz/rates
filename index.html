@@ -2,27 +2,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>حساب المعدل الفصلي</title>
+    <title>حاسبة المعدل التراكمي</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-    
     <div class="container">
         <header>
-            <script type="text/javascript">
-                atOptions = {
-                    'key' : '76373a8ee469bdc7e18a98b28a1916e7',
-                    'format' : 'iframe',
-                    'height' : 60,
-                    'width' : 468,
-                    'params' : {}
-                };
-            </script>
-            <script type="text/javascript" src="//www.highperformanceformat.com/76373a8ee469bdc7e18a98b28a1916e7/invoke.js"></script>
-            <h1>
-                حساب المعدل الفصلي
-        </h1>
+            <h1>حاسبة المعدل التراكمي</h1>
             <p>اختر المرحلة التعليمية</p>
         </header>
 
@@ -63,43 +49,43 @@
                 <select id="grade-select" class="grade-select" onchange="handleGradeChange()">
                     <option value="">اختر السنة الدراسية</option>
                     <!-- Elementary School Years -->
-                    <option value="السنة الأولى" data-level="elementary" data-href="primery-school/1ap.html">السنة الأولى</option>
-                    <option value="السنة الثانية" data-level="elementary" data-href="primery-school/2ap.html">السنة الثانية</option>
-                    <option value="السنة الثالثة" data-level="elementary" data-href="primery-school/3ap.html">السنة الثالثة</option>
-                    <option value="السنة الرابعة" data-level="elementary" data-href="primery-school/4ap.html">السنة الرابعة</option>
-                    <option value="السنة الخامسة" data-level="elementary" data-href="primery-school/5ap.html">السنة الخامسة</option>
+                    <option value="السنة الأولى" data-level="elementary" data-href="">السنة الأولى</option>
+                    <option value="السنة الثانية" data-level="elementary" data-href="">السنة الثانية</option>
+                    <option value="السنة الثالثة" data-level="elementary" data-href="">السنة الثالثة</option>
+                    <option value="السنة الرابعة" data-level="elementary" data-href="">السنة الرابعة</option>
+                    <option value="السنة الخامسة" data-level="elementary" data-href="">السنة الخامسة</option>
                     <!-- Middle School Years -->
-                    <option value="السنة الأولى" data-level="middle" data-href="middle-school/1am.html">السنة الأولى</option>
-                    <option value="السنة الثانية" data-level="middle" data-href="middle-school/2am.html">السنة الثانية</option>
-                    <option value="السنة الثالثة" data-level="middle" data-href="middle-school/3am.html">السنة الثالثة</option>
-                    <option value="السنة الرابعة" data-level="middle" data-href="middle-school/4am.html">السنة الرابعة</option>
+                    <option value="السنة الأولى" data-level="middle" data-href="">السنة الأولى</option>
+                    <option value="السنة الثانية" data-level="middle" data-href="">السنة الثانية</option>
+                    <option value="السنة الثالثة" data-level="middle" data-href="">السنة الثالثة</option>
+                    <option value="السنة الرابعة" data-level="middle" data-href="">السنة الرابعة</option>
                     <!-- High School Years -->
-                    <option value="السنة الأولى" data-level="highschool" data-href="secondary-school/1as">السنة الأولى</option>
-                    <option value="السنة الثانية" data-level="highschool" data-href="secondary-school/2as">السنة الثانية</option>
-                    <option value="السنة الثالثة" data-level="highschool" data-href="secondary-school/3as">السنة الثالثة</option>
+                    <option value="السنة الأولى" data-level="highschool" data-href="">السنة الأولى</option>
+                    <option value="السنة الثانية" data-level="highschool" data-href="">السنة الثانية</option>
+                    <option value="السنة الثالثة" data-level="highschool" data-href="">السنة الثالثة</option>
                 </select>
                 
                 <div id="stream-selection" class="stream-selection" style="display: none;">
                     <select id="stream-select" class="stream-select" onchange="handleStreamChange()">
                         <option value="">اختر الشعبة</option>
                         <!-- First Year Streams -->
-                        <option value="جذع مشترك علوم تجريبية و تكنولوجيا" data-year="first" data-href="secondary-school/1as/1as-sc.html">جذع مشترك علوم تجريبية و تكنولوجيا</option>
-                        <option value="جذع مشترك آداب" data-year="first" data-href="secondary-school/1as/1as-li.html">جذع مشترك آداب</option>
-                        <!-- second Years Streams -->
-                        <option value="شعبة رياضيات" data-year="second" data-href="secondary-school/2as/sc/math.html">شعبة رياضيات</option>
-                        <option value="شعبة تقني رياضي" data-year="second" data-href="secondary-school/2as/sc/math-tech.html">شعبة تقني رياضيات</option>
-                        <option value="شعبة علوم تجريبية" data-year="second" data-href="secondary-school/2as/sc/exp-sc.html">شعبة علوم تجريبية</option>
-                        <option value="شعبة تسيير و اقتصاد" data-year="second" data-href="secondary-school/2as/sc/eco.html">شعبة تسيير و اقتصاد</option>
-                        <option value="شعبة آداب و فلسفة" data-year="second" data-href="secondary-school/2as/li/phil.html">شعبة آداب و فلسفة</option>
-                        <option value="شعبة لغات اجنبية" data-year="second" data-href="secondary-school/2as/li/lang.html">شعبة لغات اجنبية</option>
-           
-                        <option value="شعبة رياضيات" data-year="third" data-href="secondary-school/3as/sc/math.html">شعبة رياضيات</option>
-                        <option value="شعبة تقني رياضي" data-year="third" data-href="secondary-school/3as/sc/math-tech.html">شعبة تقني رياضي</option>
-                        <option value="شعبة علوم تجريبية" data-year="third" data-href="secondary-school/3as/sc/exp-sc.html">شعبة علوم تجريبية</option>
-                        <option value="شعبة تسيير و اقتصاد" data-year="third" data-href="secondary-school/3as/sc/eco.html">شعبة تسيير و اقتصاد</option>
-                        <option value="شعبة آداب و فلسفة" data-year="third" data-href="secondary-school/3as/li/phil.html">شعبة آداب و فلسفة</option>
-                        <option value="شعبة لغات اجنبية" data-year="third" data-href="secondary-school/3as/li/lang.html">شعبة لغات اجنبية</option>
-                               </select>
+                        <option value="جذع مشترك علوم تجريبية و تكنولوجيا" data-year="first" data-href="">جذع مشترك علوم تجريبية و تكنولوجيا</option>
+                        <option value="جذع مشترك آداب" data-year="first" data-href="">جذع مشترك آداب</option>
+                        <!-- Second Year Streams -->
+                        <option value="شعبة رياضي" data-year="second" data-href="">شعبة رياضي</option>
+                        <option value="شعبة تقني رياضي" data-year="second" data-href="">شعبة تقني رياضي</option>
+                        <option value="شعبة علوم تجريبية" data-year="second" data-href="">شعبة علوم تجريبية</option>
+                        <option value="شعبة تسيير و اقتصاد" data-year="second" data-href="">شعبة تسيير و اقتصاد</option>
+                        <option value="شعبة آداب و فلسفة" data-year="second" data-href="">شعبة آداب و فلسفة</option>
+                        <option value="شعبة لغات اجنبية" data-year="second" data-href="">شعبة لغات اجنبية</option>
+                        <!-- Third Year Streams -->
+                        <option value="شعبة رياضي" data-year="third" data-href="">شعبة رياضي</option>
+                        <option value="شعبة تقني رياضي" data-year="third" data-href="">شعبة تقني رياضي</option>
+                        <option value="شعبة علوم تجريبية" data-year="third" data-href="">شعبة علوم تجريبية</option>
+                        <option value="شعبة تسيير و اقتصاد" data-year="third" data-href="">شعبة تسيير و اقتصاد</option>
+                        <option value="شعبة آداب و فلسفة" data-year="third" data-href="">شعبة آداب و فلسفة</option>
+                        <option value="شعبة لغات اجنبية" data-year="third" data-href="">شعبة لغات اجنبية</option>
+                    </select>
                 </div>
 
                 <button id="continue-btn" class="continue-btn" disabled>متابعة</button>
@@ -107,11 +93,5 @@
         </div>
     </div>
     <script src="script.js"></script>
-    <center>
-       <hr width="100%"><br> Mohamed Nassereddine Hamouda<br>All rights saved - 2025<br>
-    </center>
-    </div>
-
 </body>
-
 </html>
