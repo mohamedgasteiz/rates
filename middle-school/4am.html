@@ -12,9 +12,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
- 
-               <h1>حساب المعدل الفصلي</h1>
-        <h2>سنة رابعة متوسط</h2>
+    <div class="container">
+        <h1>حساب المعدل الفصلي</h1>
+        <h2>سنة اولى ثانوي</h2>
+        <h3>جدع مشترك اداب</h3>
+        
         
         <table>
             <thead>
@@ -33,9 +35,8 @@
         </table>
 
         <div class="button-group">
-<a href="https://www.effectiveratecpm.com/sy3ifa5y7i?key=077a48fea1bd64a523bf6bc989c08c76"  target="_blank">
-    
-</a>            <button onclick="calculateAverage()">حساب المعدل الفصلي</button>
+<a href="https://www.effectiveratecpm.com/sy3ifa5y7i?key=077a48fea1bd64a523bf6bc989c08c76"  target="_blank">  
+              <button onclick="calculateAverage()">حساب المعدل الفصلي</button>
             <button onclick="exportToPDF()">تحميل PDF</button></a>
         </div>
         
@@ -49,7 +50,8 @@
 
     <script>
         // أسماء المواد مع المعاملات المحددة مسبقًا
-const subjects = [
+  
+        const subjects = [
 { name: "عربية", coefficient: 5 },
 { name: "فرنسية", coefficient: 3 },  
 { name: "إنجليزية", coefficient: 2 }, 
@@ -62,6 +64,7 @@ const subjects = [
     { name: "موسيقى/تشكيلية /معلوماتية", coefficient: 1 },
     { name: "تربية بدنية", coefficient: 1 }
 ];
+
 // إنشاء الجدول تلقائيًا
 const tableBody = document.getElementById("gradesTable");
 
